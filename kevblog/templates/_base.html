@@ -37,3 +37,21 @@
 <!--/div-->
 {% endblock %}
 
+{% macro show_article(entry) %}
+<div class="panel panel-info">
+    <div class="panel-heading"><a href="/article/{{entry.id}}"><h3><strong>{{entry.title}}</strong></h3></a></div>
+    <div class="panel-body">
+        <p>{{entry.summary}}</p>
+    </div>
+    <div class="panel-footer">
+    {% if entry.tags %}
+        <p>
+            {% for tag in entry.tags %}
+                <a href="/tag/{{tag.id}}" class="btn btn-primary btn-xs">{{tag.name}}</a>
+            {% endfor %}
+        </p>
+    {% endif %}
+    <p>Published on <em><strong>{{format_date(entry.pubTime)}}</strong></em></p>
+    </div>
+</div>
+{%- endmacro %}

@@ -50,11 +50,15 @@ def show_tags():
 
 @app.route('/tag/<int:id>')
 def show_tag(id):
+    try:
+        page = int(request.args.get('page', '')) 
+    except ValueError:
+        page = 1
     tag = Tag.query.get_or_404(id)
-    articles = tag.articles.all()
+    pagination = tag.articles.paginate(page, per_page=10)
     return render_template('tag.html',
                            tag=tag,
-                           entries=articles)
+                           pagination=pagination)
 
 @app.route('/about')
 def about():

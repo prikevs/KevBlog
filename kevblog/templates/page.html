@@ -3,7 +3,11 @@
 {% block content %}
     {{content|safe}}
 {% if pubTime %}
-    <p>Written on {{format_date_weekday(pubTime)}}
+    <div class="row">
+        <div class="col-md-offset-6">
+        <p>Written on <strong><em>{{format_date_weekday(pubTime)}}</em></strong>
+        </div>
+    </div>
 {% endif %}
 
 {% if tags %}
@@ -11,7 +15,7 @@
     {% for tag in tags %}
         {% if not loop.first and not loop.last %}, {% endif %}
         {% if loop.last and not loop.first %} and {% endif %}
-        <a href="/tag/{{tag.id}}">{{tag.name}}</a>
+        <button class="btn btn-primary btn-xs" href="/tag/{{tag.id}}">{{tag.name}}</button>
     {% endfor %}
 
 {% endif %}

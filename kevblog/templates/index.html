@@ -8,16 +8,19 @@
         {%- for entry in pagination.items %}
             <div class="row">
                 <div class="col-md-10">
-                    <div class="panel panel-info">
-                        <div class="panel-heading"><h3><a href="/article/{{entry.id}}"><strong>{{entry.title}}</strong></h3></a></div>
-                        <div class="panel-body"><p>{{entry.summary}}</p></div>
-                        <div class="panel-footer">{{format_date(entry.pubTime)}}</div>
-                    </div>
+                    {{show_article(entry)}}
                 </div>
             </div>
         {%- endfor%}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="panel">
+                <div class="panel-body">
+                    {% block Right %}
+                    <h2>About me</h2>
+                    {% endblock Right%}
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
