@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+        {%- for tag in tags %}
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h3><a href="/tag/{{tag.id}}"><strong>{{tag.name}}</strong></h3></a></div>
+                    </div>
+                </div>
+            </div>
+        {%- endfor%}
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12 middle" align="center">
+    </div>
+    </div>
+{% endblock %}

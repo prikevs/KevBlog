@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+{% block title %}Kevince's Blog{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+        {%- for entry in pagination.items %}
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h3><a href="/article/{{entry.id}}"><strong>{{entry.title}}</strong></h3></a></div>
+                        <div class="panel-body"><p>{{entry.summary}}</p></div>
+                        <div class="panel-footer">{{format_date(entry.pubTime)}}</div>
+                    </div>
+                </div>
+            </div>
+        {%- endfor%}
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12 middle" align="center">
+    {{render_pagination(pagination)}}
+    </div>
+    </div>
+{% endblock %}
