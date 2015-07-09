@@ -34,11 +34,10 @@ def index():
 
 @app.route('/article/<int:id>')
 def show_article(id):
-    print("xx")
     article = Article.query.get_or_404(id)
     return render_template('page.html',
                             title=article.title,
-                            content=article.content,
+                            content=markdown2html(article.content),
                             pubTime=article.pubTime,
                             tags=article.tags)
 
@@ -73,3 +72,37 @@ def links():
     return render_template('page.html',
                            title="Links",
                            content=content)
+
+@app.route('/publish', methods=['GET', 'POST'])
+def publish():
+    if request.method == 'GET':
+        abort(404)
+    token = request.form.get('token', '')
+    if token != app.config['TOKEN']:
+        return 'invalid access token', 500
+
+    title = request.form.get('title', None)
+    if not title:
+        return 'no title found', 500
+
+    summary = request.form.get('summary', None)
+    if not summary:
+        return 'no summary found', 500
+
+    content = request.form.get('content', None)
+    if not content:
+        return 'no content found', 500
+
+    pubTime = request.form.get('pubTime', None)
+    if pubTime:
+        pubTime = datetime.strptime(pubTime, app.config['TIME_FORMAT'])
+
+    isPub = request.form.get('isPub', True)
+    if isPub != True:
+        isPub = False
+
+    tags = request.form.getlist('tags')
+
+    create_article(title, summary, content, pubTime, isPub, tags)
+    return '', 200
+

@@ -1,23 +1,22 @@
 {% extends "_base.html" %}
 {% block title %}{{title}}{% endblock %}
 {% block content %}
+
     {{content|safe}}
+    <div class="container">
+    {% if tags %}
+        <strong>Tags:</strong>
+        {% for tag in tags %}
+            {{tagbutton(tag)}}
+        {% endfor %}
+    {% endif %}
+    </div>
 {% if pubTime %}
     <div class="row">
         <div class="col-md-offset-6">
         <p>Written on <strong><em>{{format_date_weekday(pubTime)}}</em></strong>
         </div>
     </div>
-{% endif %}
-
-{% if tags %}
-    <p>This entry was tagged</p>
-    {% for tag in tags %}
-        {% if not loop.first and not loop.last %}, {% endif %}
-        {% if loop.last and not loop.first %} and {% endif %}
-        {{tagbutton(tag)}}
-    {% endfor %}
-
 {% endif %}
 
 {% endblock %}
