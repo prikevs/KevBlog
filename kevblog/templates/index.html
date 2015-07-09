@@ -3,6 +3,8 @@
 {% block title %}Kevince's Blog{% endblock %}
 
 {% block content %}
+    {% block Head %}
+    {%- endblock Head %}
     <div class="row">
         <div class="col-md-8">
         {%- for entry in pagination.items %}

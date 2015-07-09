@@ -15,7 +15,7 @@
     {% for tag in tags %}
         {% if not loop.first and not loop.last %}, {% endif %}
         {% if loop.last and not loop.first %} and {% endif %}
-        <button class="btn btn-primary btn-xs" href="/tag/{{tag.id}}">{{tag.name}}</button>
+        {{tagbutton(tag)}}
     {% endfor %}
 
 {% endif %}

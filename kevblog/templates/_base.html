@@ -1,5 +1,63 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/fixes.html" as fixes %}
+{% block styles %}
+     <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
+     <style type="text/css">
+     /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      #wrap > .container {
+        padding-top: 60px;
+      }
+      .container .credit {
+        margin: 20px 0;
+      }
+
+      code {
+        font-size: 80%;
+      }
+     </style>
+{% endblock %}
 {% block head %}
     {{super()}}
     {{fixes.ie8()}}
@@ -33,9 +91,17 @@
     {% block content %}
     {%- endblock content %}
     </div>
-
+<div id="footer">
+    <div class="container">
+        <p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+    </div>
+</div>
 <!--/div-->
 {% endblock %}
+
+{% macro tagbutton(tag, tagsize="btn-xs", tagtype="btn-primary") %}
+    <a href="/tag/{{tag.id}}" class="btn {{tagsize}} {{tagtype}}">{{tag.name}}</a>
+{% endmacro %}
 
 {% macro show_article(entry) %}
 <div class="panel panel-info">
@@ -47,7 +113,7 @@
     {% if entry.tags %}
         <p>
             {% for tag in entry.tags %}
-                <a href="/tag/{{tag.id}}" class="btn btn-primary btn-xs">{{tag.name}}</a>
+                {{tagbutton(tag)}}
             {% endfor %}
         </p>
     {% endif %}
